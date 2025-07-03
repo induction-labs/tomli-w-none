@@ -114,7 +114,7 @@ def format_literal(obj: object, ctx: Context, *, nest_level: int = 0) -> str:
         return format_inline_table(obj, ctx)
     # Add None type
     if obj is None:
-        return "None"
+        return "null"
 
     # Lazy import to improve module import time
     from decimal import Decimal
