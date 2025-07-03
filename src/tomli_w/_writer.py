@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 ASCII_CTRL = frozenset(chr(i) for i in range(32)) | frozenset(chr(127))
 ILLEGAL_BASIC_STR_CHARS = frozenset('"\\') | ASCII_CTRL - frozenset("\t")
 BARE_KEY_CHARS = frozenset(
-    "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789" "-_"
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
 )
 ARRAY_TYPES = (list, tuple)
 MAX_LINE_LENGTH = 100
@@ -112,6 +112,9 @@ def format_literal(obj: object, ctx: Context, *, nest_level: int = 0) -> str:
         return format_inline_array(obj, ctx, nest_level)
     if isinstance(obj, Mapping):
         return format_inline_table(obj, ctx)
+    # Add None type
+    if obj is None:
+        return "None"
 
     # Lazy import to improve module import time
     from decimal import Decimal
